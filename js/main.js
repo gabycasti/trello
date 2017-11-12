@@ -1,4 +1,4 @@
-var contSeccion = 0;
+
 
 //Creando las variables
 //var lista_formulario = document.getElementById('lista');
@@ -13,7 +13,7 @@ agregarList.addEventListener('click',function(){
 
 	document.getElementById('contList').className= 'listado_on';
 
-    document.getElementById('lista').focus();
+    document.getElementById('listado').focus();
 	// Falta agregar el div del lado derecho
 
 })
@@ -21,9 +21,7 @@ agregarList.addEventListener('click',function(){
 
 var btn = document.getElementById('btn');
 btn.addEventListener('click',function(){
-		//document.getElementById('contList').className = 'listado_off';
-		//document.getElementById('contArea').className = 'listado_on';
-		//document.getElementById('listArea').innerHTML=document.getElementById('lista').value;
+		
 	
 	//Crear la Sección donde voy a añadir la nueva tarjeta 
 	//Crear el a href
@@ -34,43 +32,103 @@ btn.addEventListener('click',function(){
 	//Crear un contador en la parte inicial del programa 
 	//me indicara cuantas secciones nuevas se estan creando
 
-	//Incrementando contador de secciones
-	contSeccion = contSeccion+1;
 
 	var nuevaSeccion = document.createElement('section');
-	nuevaSeccion.setAttribute('id','secondSeccion'+contSeccion);
-	nuevaSeccion.className='inline'
+	nuevaSeccion.className='inline listado_on'
 
 	var newtitulo = document.createElement('span');
-	newtitulo.setAttribute('id','titulo'+contSeccion);
 	var divTitulo = document.createElement('div');
 	divTitulo.appendChild(newtitulo);
+	divTitulo.className='titulo';
 
 	var newlink = document.createElement('a');
-	newlink.setAttribute('id','link'+contSeccion);
+	newlink.setAttribute('href','#');
+
 	newlink.innerHTML='Añadir una Tarjeta';
+
+	//crear espacio contenedor de tarjetas
+	var divTarjetas = document.createElement('div');
+	divTarjetas.className='contenedor';
+	
+   
+
+   //Creando el link para agregar una nueva lista 
+	var divLink = document.createElement('div');
+	divLink.appendChild(newlink);
+	divLink.className='link';
+
 
 
 	
+   // Creando el texto de la nueva lista
+	var newTexto = document.createTextNode(document.getElementById('listado').value);
+	document.getElementById('listado').value="";
 
-	var newTexto = document.createTextNode(document.getElementById('lista').value);
     newtitulo.appendChild(newTexto);
+
     
 
-
     var textArea = document.createElement('textarea');
-    textArea.setAttribute('id','area'+contSeccion);
+    textArea.className='txtArea_off';
 
+    var divArea = document.createElement('div');
+	divArea.appendChild(textArea);
+	
+
+
+  //Creando el boton guardar
     var newboton = document.createElement('button');
-    newboton.setAttribute('id','boton'+contSeccion);
     newboton.innerHTML='Guardar';
-    newboton.className='boton';
+    newboton.className='boton_off';
 
 
+    var divBoton = document.createElement('div');
+	divBoton.appendChild(newboton);
+
+
+   //CREAR TODOS LOS EVENTOS
+
+    //Crear una función para el link agregar tarjeta
+   // var agregarTarjeta = document.getElementById('link');
+    //var tarjeta = document.getElementById('card');
+	  newlink.addEventListener('click',function(){
+		newlink.className = 'link_tarjeta_off';
+		textArea.className = 'txtArea';
+		newboton.className = 'boton';
+		textArea.focus();
+	})
+
+
+	newboton.addEventListener('click',function(){
+
+	var texto = document.createElement('p');
+	var nombre_card = textArea.value;
+	var new_card = document.createTextNode(nombre_card);
+
+	texto.appendChild(new_card);
+
+	divTarjetas.appendChild(texto);
+	textArea.value="";
+    textArea.focus();
+	
+     })
+
+
+   //Creando el div contenedor de textarea y boton para poder 
+   // asignarle un estilo
+
+    var contextboton = document.createElement('div');
+    contextboton.appendChild(divArea);
+    contextboton.appendChild(divBoton);
+    contextboton.className='contenedor';
+
+
+ // asignandole los hijos a nueva sección
     nuevaSeccion.appendChild(divTitulo);
-    nuevaSeccion.appendChild(newlink);
-    nuevaSeccion.appendChild(textArea);
-    nuevaSeccion.appendChild(newboton);
+    nuevaSeccion.appendChild(divLink);
+    nuevaSeccion.appendChild(divTarjetas);
+    nuevaSeccion.appendChild(contextboton);
+    
 
     firstseccion = document.getElementById("firstseccion");
 
@@ -81,36 +139,6 @@ btn.addEventListener('click',function(){
 
 
 
-
-//Crear una función para el link agregar tarjeta
-//var agregarTarjeta = document.getElementById('link');
-//var tarjeta = document.getElementById('card');
-	//agregarTarjeta.addEventListener('click',function(){
-		//document.getElementById('link').className = 'link_tarjeta_off';
-		//document.getElementById('card').className = 'newTarjeta_on';
-	//})
-
-
-//Esta función deshabilita el formulario anterior que contiene
-// solo el input y el boton para activar el formulario
-// Que contiene el textarea y el boton
-//var agregarTextArea = document.getElementById('btnArea');
-//var lisTarjeta = document.getElementById('contTarjeta');
-
-//agregarTextArea.addEventListener('click',function(){
-
-	//var texto = document.createElement('p');
-	//var nombre_card = document.getElementById('namecard').value;
-	//var new_card = document.createTextNode(nombre_card);
-
-	//texto.appendChild(new_card);
-
-	//lisTarjeta.appendChild(texto);
-
-
-
-	
-//})
 
 
 
